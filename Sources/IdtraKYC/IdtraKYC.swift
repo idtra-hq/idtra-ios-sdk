@@ -11,7 +11,15 @@ public final class IdtraKYC {
 
     public static var defaultBaseUrl: String = "https://idtra.com"
 
+    /// Recommended (v2): present the hosted verification page created by YOUR SERVER (verification_url from
+    /// POST /api/biometrics/session/create). No API key in the app. See `IdtraSession`.
+    public static func startSession(from presenter: UIViewController, verificationUrl: String,
+                                    completion: @escaping (IdtraSessionResult) -> Void) throws {
+        try IdtraSession.start(from: presenter, verificationUrl: verificationUrl, completion: completion)
+    }
+
     /// Launch Biometric Verification modal screen
+    @available(*, deprecated, message: "Ships your secret API key inside the app. Use startSession(from:verificationUrl:completion:).")
     public static func startVerification(
         from presenter: UIViewController,
         apiKey: String,
